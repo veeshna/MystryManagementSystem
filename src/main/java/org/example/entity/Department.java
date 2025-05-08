@@ -1,12 +1,15 @@
 package org.example.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
-import lombok.Data;
-import org.hibernate.annotations.IdGeneratorType;
-import org.hibernate.id.factory.internal.AutoGenerationTypeStrategy;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+
+
 @Data
-@Entity
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "department")
 public class Department {
 

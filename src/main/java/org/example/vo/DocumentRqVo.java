@@ -1,16 +1,20 @@
 package org.example.vo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.example.entity.Department;
-import org.example.enums.DocumentType;
-import org.example.enums.SecurityClassificationTypes;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DocumentRqVo {
     private String documentNo;
 
@@ -18,14 +22,14 @@ public class DocumentRqVo {
 
     private String description;
 
-    private LocalDate CreatedAt;
+    private LocalDate createdAt;
     private Department ownerDpt;
-    private DocumentType type;
-    private SecurityClassificationTypes securityTypes;
+    private String type;
+    private String securityTypes;
     private String fileLocation;
-    private double version;
+//    private double version;
 
-    private LocalDate startDate;
+//    private LocalDate startDate;
     private LocalDate endDate;
 
     private Pageable pageable;

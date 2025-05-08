@@ -1,34 +1,33 @@
 package org.example.service;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.example.entity.Department;
 import org.example.entity.Document;
 import org.example.repository.DocumentRepository;
+
 import org.example.vo.DocumentRqVo;
 import org.example.vo.DocumentRsVo;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
+@RequiredArgsConstructor
 public class DocumentServiceImpl implements DocumentService{
-    private static DocumentRepository documentRepository;
+    private final DocumentRepository documentRepository;
     @Override
     public String create(DocumentRqVo req) {
-        Document document = Document.builder().documentNo(req.getDocumentNo())
-                .CreatedAt(req.getCreatedAt())
-                .title(req.getTitle())
-                .description(req.getDescription())
-                .fileLocation(req.getFileLocation())
-                .version(req.getVersion())
-                .type(req.getType())
-                .securityTypes(req.getSecurityTypes())
-                .ownerDpt(req.getOwnerDpt())
-                .build();
+        Document document = new Document();
+        document.setDocumentNo(req.getDocumentNo());
+        document.setTitle(req.getTitle());
+        document.setCreatedAt(LocalDate.now());
+        document.setType(req.getType());
+        document.setSecurityTypes(req.getSecurityTypes());
+        document.setDescription(req.getDescription());
+        document.setFileLocation(req.getFileLocation());
+        document.setVersion(1.0);
         String res;
         try {
             documentRepository.save(document);
@@ -42,27 +41,29 @@ public class DocumentServiceImpl implements DocumentService{
 
     @Override
     public Page<DocumentRsVo> search(DocumentRqVo req) throws BadRequestException {
-            List<Document> documentsByDocNo = documentRepository.findByDocumentNoAndTitleAndOwnerDptDepartmentCodeAndTypeAndSecurityTypesAndCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual
-                    (req.getDocumentNo(),req.getTitle(),req.getOwnerDpt().getDepartmentCode(),req.getType(),req.getSecurityTypes(),req.getStartDate(),
-                            req.getEndDate(),req.getPageable());
+            List<Document> documentsByDocNo = new ArrayList<>();
+//            documentRepository.findByDocumentNoAndTitleAndOwnerDptDepartmentCodeAndTypeAndSecurityTypesAndCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual
+//                    (req.getDocumentNo(),req.getTitle(),req.getOwnerDpt().getDepartmentCode(),req.getType(),req.getSecurityTypes(),req.getStartDate(),
+//                            req.getEndDate(),req.getPageable());
             if (documentsByDocNo.isEmpty()){
                 throw new BadRequestException("Invalid parameter value");
             }
 
        List<DocumentRsVo> res = new ArrayList<>();
        documentsByDocNo.forEach(d->{
-           res.add(DocumentRsVo.builder()
-                   .id(d.getId())
-                   .documentNo(d.getDocumentNo())
-                   .CreatedAt(d.getCreatedAt())
-                   .description(d.getDescription())
-                   .fileLocation(d.getFileLocation())
-                   .ownerDpt(d.getOwnerDpt())
-                           .securityTypes(d.getSecurityTypes())
-                           .title(d.getTitle())
-                           .type(d.getType())
-                           .version(d.getVersion())
-                   .build());
+//           DocumentRsVo.builder()
+//                   .id(d.getId())
+//                   .documentNo(d.getDocumentNo())
+//                   .CreatedAt(d.getCreatedAt())
+//                   .description(d.getDescription())
+//                   .fileLocation(d.getFileLocation())
+//                   .ownerDpt(d.getOwnerDpt())
+//                   .securityTypes(d.getSecurityTypes())
+//                   .title(d.getTitle())
+//                   .type(d.getType())
+//                   .version(d.getVersion())
+//                   .build();
+//           res.add(List.of(new DocumentRsVo()));
        });
 
 

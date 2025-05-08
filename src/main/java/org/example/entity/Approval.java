@@ -15,11 +15,9 @@ public class Approval {
     @Column(name = "id")
     private Long id;
     @Column(name = "documentWorkflow")
-    @OneToOne
-    private DocumentWorkflow documentWorkflow;
+    private Long documentWorkflow;
     @Column(name = "department")
-    @OneToOne
-    private Department department;
+    private Long department;
     @Column(name = "status")
     private ApprovalStatus status;
     @Column(name = "date")

@@ -18,8 +18,7 @@ public class DocumentWorkflow {
     private Long id;
 
     @Column(name = "document")
-    @OneToOne
-    private Document document;
+    private Long document;
     @Column(name = "currentstate")
     private CurrentState currentstate;
     @Column(name = "modifiedAt")
